@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Broke head - Puzzle</title>
+<style>
+* { padding: 8px; color: #000; background: #fff; }
+
+table { border-collapse: collapse; }
+
+td {
+  width: 44px; height: 44px; text-align: center;
+  border: 3px solid #999; font-size: 20px; cursor: pointer;
+}
+
+td:hover { background: #000; color: #fff; }
+
+button { background: cyan; font-size: 16px; padding: 6px 12px; }
+
+button:hover { background: #000; color: #fff; }
+
+.modo-inverso { outline: 2px solid blue; background: #000; color: #fff; }
+
+  
+</style>
+</head>
+
+<body>
+
+  <main>
+
+    <h1>Puzzle</h1>
+
+    <button id="reloadBtn" onclick="location.reload()">Reload</button>
+
+    <table id="minha-tabela" border="1" cellpadding="4" cellspacing="0">
+    </table>
+
+    <div>
+        <h1 id="documenta-o-do-c-digo">Documentação do código</h1>
+        <h1 id="tutorial-quebra-cabe-a-com-n-meros-html-js-">Tutorial: Quebra-cabeça com números (HTML/JS)</h1>
+        <p>Este projeto implementa um pequeno jogo de lógica apresentado dentro de uma tabela. O usuário pode iniciar preenchendo a tabela com incógnitas (indicadas por &quot;?&quot;) e jogar interagindo com as células da tabela para fazer substituições.</p>
+        <h2 id="vis-o-geral">Visão geral</h2>
+        <ul>
+        <li>Gera uma grade (tabela) com 10 linhas e 13 colunas.</li>
+        <li>As células contêm números, operadores e símbolos, com algumas posições marcadas por <code>?</code> para representar incógnitas.</li>
+        <li>Ao clicar em uma célula:<ul>
+        <li>Primeiro clique seleciona a célula (com destaque).</li>
+        <li>Segundo clique copia o conteúdo da segunda célula para a primeira.</li>
+        </ul>
+        </li>
+        <li>Um botão &quot;Reload&quot; recarrega a página, gerando uma nova grade.</li>
+        </ul>
+        <h2 id="estrutura-do-conte-do-alto-n-vel-">Estrutura do conteúdo (alto nível)</h2>
+        <ul>
+        <li><p>HTML:</p>
+        <ul>
+        <li>Estrutura básica com <code>&lt;table id=&quot;minha-tabela&quot;&gt;</code> para a grade.</li>
+        <li>Um botão que recarrega a página.</li>
+        </ul>
+        </li>
+        <li><p>CSS:</p>
+        <ul>
+        <li>Aparência da grade: tamanho, cores, bordas, hover, etc.</li>
+        </ul>
+        </li>
+        <li><p>JavaScript:</p>
+        <ul>
+        <li>Constantes de sinais/operadores.</li>
+        <li>Geração da matriz <code>matrix</code> (10x13) com padrões de conteúdo.</li>
+        <li>Inserção de 5 <code>?</code> em posições aleatórias por linha.</li>
+        <li>Construção da tabela no DOM a partir da matriz.</li>
+        <li>Lógica de clique em células para selecionar/copiar conteúdo entre células.</li>
+        </ul>
+        </li>
+        </ul>
+        <h2 id="como-o-c-digo-joga-regras-de-jogo-">Como o código “joga” (regras de jogo)</h2>
+        <ul>
+        <li><p>A grade contém números, operadores e símbolos, formando expressões incompletas.</p>
+        </li>
+        <li><p>As incógnitas <code>?</code> podem ser trocadas por valores durante o jogo, permitindo ao jogador completar as expressões.</p>
+        </li>
+        <li><p>A mecânica de jogo básica de clique-a-clique facilita a substituição de incógnitas:</p>
+        <ul>
+        <li>Clique na célula que você quer editar (primeiro clique).</li>
+        <li>Clique em outra célula para copiar o conteúdo dessa segunda célula para a primeira (segundo clique).</li>
+        </ul>
+        </li>
+        </ul>
+      
+    </div>
+  </main>
+
+
+<script>
+// script.js
+
+    const ROWS = 10;
+    const COLS = 13;
+    const signalColA = ['+','-'];
+    // const signalColA = ['+','-','*','/'];
+    const signalColB = ['<','>','<=','=>'];
+
+    // Matriz que representa a grade (inicializada com zeros)
+    const matrix = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+
+    // Funções utilitárias
+    function randInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function randSignalA() { return signalColA[randInt(0, signalColA.length - 1)]; }
+
+    function randSignalB() { return signalColB[randInt(0, signalColB.length - 1)]; }
+
+    // Is ?
+    function isQuestion(el, le, dft) {
+      result = dft;
+      if (el != "?" && le !="?") { result = "?";}
+      return result;
+    }
+    function checkValue( posSinal, posZero, posDois, quatro)  {
+
+      /*          *********C O L U N A S********** 
+          | Sinal | Zero | Dois | quatro | Igual  |
+          |   +   |   ?  |  d   |      q |   q-d  |
+          |   -   |   ?  |  d   |      q |   q+d  |
+          |   +   |   z  |  ?   |      q |   q-z  |
+          |   -   |   z  |  ?   |      q |   q+z  |
+          |   *   |   z  |  ?   |      q |   q/z  |
+          |   *   |   ?  |  d   |      q |   q/d  |
+          |   /   |   ?  |  d   |      q |   q*d  |
+          |   /   |   z  |  ?   |      q |   q*z  |
+      */
+      return result;
+    }
+
+    // Preenche a matriz com valores padrão conforme o layout do código original
+    for (let i = 0; i < ROWS; i++) {
+      matrix[i][0]  = randInt(4, 6);
+      matrix[i][2]  = randInt(1, 3);
+      matrix[i][6]  = randInt(0, 9);
+      matrix[i][8]  = randInt(0, 9);
+      matrix[i][10] = randInt(0, 9);
+      matrix[i][12] = randInt(0, 9);
+      // inserir 5 '?' em posições aleatórias da linha
+      for (let k = 0; k < 5; k++) {
+        let ccol;
+        do {
+          ccol = randInt(0, COLS - 1);
+        } while (typeof matrix[i][ccol] === 'object' && matrix[i][ccol] === null);
+        matrix[i][ccol] = '?';
+      }
+
+      matrix[i][1]  = randSignalA();
+      matrix[i][3]  = '=';
+
+      matrix[i][4]  = isQuestion( matrix[i][0], matrix[i][2], matrix[i][5]);
+      matrix[i][5]  = '=';
+      matrix[i][7]  = randSignalA();
+      matrix[i][9]  = randSignalB();
+      matrix[i][11] = randSignalA();
+    }
+
+    // Construção da tabela na página
+    const table = document.getElementById('minha-tabela');
+
+    for (let i = 0; i < ROWS; i++) {
+      const tr = document.createElement('tr');
+      for (let j = 0; j < COLS; j++) {
+        const td = document.createElement('td');
+        td.textContent = matrix[i][j];
+        tr.appendChild(td);
+      }
+      table.appendChild(tr);
+    }
+
+    // Lógica de clique: primeiro clique seleciona, segundo copia conteúdo
+
+    let primeiraClique = null;
+
+    function resetEstado() {
+      if (primeiraClique) primeiraClique.classList.remove('modo-inverso');
+      primeiraClique = null;
+    }
+
+    table.addEventListener('click', (e) => {
+      const td = e.target.closest('td');
+      lin = td.parentElement.rowIndex;
+
+      if (!td) return;
+      if (!primeiraClique) {
+        primeiraClique = td;
+        td.classList.add('modo-inverso');
+        console.log( lin," - ", matrix[lin][4] );
+      } else {
+        const textoFonte = td.textContent;
+        primeiraClique.textContent = textoFonte;
+        resetEstado();
+      }
+    });
+
+</script>
+</body>
+</html>
+
