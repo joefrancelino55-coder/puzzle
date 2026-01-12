@@ -1,35 +1,48 @@
-# Documentação do código
+# Code Documentation
 
-# Tutorial: Quebra-cabeça com números (HTML/JS)
+# Tutorial: Number Puzzle (HTML/JS)
 
-Este projeto implementa um pequeno jogo de lógica apresentado dentro de uma tabela. O usuário pode iniciar preenchendo a tabela com incógnitas (indicadas por "?") e jogar interagindo com as células da tabela para fazer substituições.
+This project implements a small logic game presented within a table. The user can start by filling the table with unknowns (indicated by "?") and play by interacting with the table cells to make substitutions.
 
-## Visão geral
-- Gera uma grade (tabela) com 10 linhas e 13 colunas.
-- As células contêm números, operadores e símbolos, com algumas posições marcadas por `?` para representar incógnitas.
-- Ao clicar em uma célula:
-  - Primeiro clique seleciona a célula (com destaque).
-  - Segundo clique copia o conteúdo da segunda célula para a primeira.
-- Um botão "Reload" recarrega a página, gerando uma nova grade.
+## Overview
+- Generates a grid (table) with 10 rows and 13 columns.
 
-## Estrutura do conteúdo (alto nível)
+- The cells contain numbers, operators, and symbols, with some positions marked by `?` to represent unknowns.
+
+- When clicking on a cell:
+
+- First click selects the cell (highlighted).
+
+- Second click copies the content of the second cell to the first.
+
+- A "Reload" button reloads the page, generating a new grid.
+
+## Content Structure (High Level)
 
 - HTML:
-  - Estrutura básica com `<table id="minha-tabela">` para a grade.
-  - Um botão que recarrega a página.
+
+- Basic structure with `<table id="my-table">` for the grid.
+
+- A button that reloads the page.
 
 - CSS:
-  - Aparência da grade: tamanho, cores, bordas, hover, etc.
+
+- Grid appearance: size, colors, borders, hover, etc.
 
 - JavaScript:
-  - Constantes de sinais/operadores.
-  - Geração da matriz `matrix` (10x13) com padrões de conteúdo.
-  - Inserção de 5 `?` em posições aleatórias por linha.
-  - Construção da tabela no DOM a partir da matriz.
-  - Lógica de clique em células para selecionar/copiar conteúdo entre células.
 
-## Como o código “joga” (regras de jogo)
+- Signal/operator constants.
 
-- A grade contém números, operadores e símbolos, formando expressões incompletas.
+- Generation of the `matrix` (10x13) array with content patterns.
 
-- As incógnitas `?` podem ser trocadas por valores durante o jogo, permitindo ao jogador completar as expressões.
+- Insertion of 5 `?` in random positions per row.
+
+- Construction of the table in the DOM from the array.
+
+- Click logic on cells to select/copy content between cells.
+
+## How the code "plays" (game rules)
+
+- The grid contains numbers, operators, and symbols, forming incomplete expressions.
+
+- The unknowns `?` can be replaced with values ​​during the game, allowing the player to complete the expressions.
