@@ -4,7 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Broke head - Puzzle</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+   <!-- No <head> do HTML -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
 <style>
+  /* style.css */
+
+/* estilo básico da grade e da interface */
 * { padding: 8px; color: #000; background: #fff; }
 
 table { border-collapse: collapse; }
@@ -20,9 +27,14 @@ button { background: cyan; font-size: 16px; padding: 6px 12px; }
 
 button:hover { background: #000; color: #fff; }
 
+footer {
+  padding-right: 35px;
+}
+
 .modo-inverso { outline: 2px solid blue; background: #000; color: #fff; }
 
-  
+
+
 </style>
 </head>
 
@@ -30,14 +42,35 @@ button:hover { background: #000; color: #fff; }
 
   <main>
 
-    <h1>Puzzle</h1>
-
-    <button id="reloadBtn" onclick="location.reload()">Reload</button>
+    <h1>Quebra cabeça de numeros</h1>  
+    <button id="reloadBtn" onclick="location.reload()">Recarregar</button>
+    <button id="idiom" onclick="JavaScript:chandeIdiom();">Inglês</button>
+    <span id="clickMouse"></span>
 
     <table id="minha-tabela" border="1" cellpadding="4" cellspacing="0">
     </table>
+    <footer style="text-align: right; padding: ;">
+         <div class="social-links">
+              <b>José Emídio Francelino</b>
+              <a href="https://x.com/JoeFrancelino" target="_blank" rel="noopener noreferrer" aria-label="github">
+                  <i class="fa-brands fa-x-twitter"></i>
+              </a>
+              <a href="https://github.com/jefBRoutlook" target="_blank" rel="noopener noreferrer" aria-label="github">
+                  <i class="fa-brands fa-github"></i>
+              </a>     
+              <a href="https://www.youtube.com/@emidiofbrasil" target="_blank" rel="noopener noreferrer" aria-label="youtube">
+                  <i class="fa-brands fa-youtube"></i>
+              </a>
+              <a href="https://www.linkedin.com/in/josé-francelino-4baa0b29b/" target="_blank" rel="noopener noreferrer" aria-label="ko-fi">
+                  <i class="fa-brands fa-linkedin"></i>
+              </a>
+              <a href="https://nanocode.webnode.page/" target="_blank" rel="noopener noreferrer" aria-label="ko-fi">
+                  <i class="fa-solid fa-blog"></i>
+              </a>
+          </div>
+    </footer>
 
-    <div>
+    <div id="ptr-br">
         <h1 id="documenta-o-do-c-digo">Documentação do código</h1>
         <h1 id="tutorial-quebra-cabe-a-com-n-meros-html-js-">Tutorial: Quebra-cabeça com números (HTML/JS)</h1>
         <p>Este projeto implementa um pequeno jogo de lógica apresentado dentro de uma tabela. O usuário pode iniciar preenchendo a tabela com incógnitas (indicadas por &quot;?&quot;) e jogar interagindo com as células da tabela para fazer substituições.</p>
@@ -88,8 +121,64 @@ button:hover { background: #000; color: #fff; }
         </ul>
         </li>
         </ul>
-      
     </div>
+
+     <div id="ing-us">
+        <h1 id="documenta-o-do-c-digo">Code documentation</h1>
+        <h1 id="tutorial-quebra-cabe-a-com-n-meros-html-js-">Tutorial: Number Puzzle (HTML/JS)</h1>
+        <p>This project implements a small logic game presented within a table. The user can start by filling the table with unknowns (indicated by "?") and play by interacting with the table cells to make substitutions.</p>
+
+          <h2 id="vis-o-geral">Overview</h2>
+        <ul>
+        <li>Generates a grid (table) with 10 rows and 13 columns.</li>
+        <li>The cells contain numbers, operators, and symbols, with some positions marked by <code>?</code> to represent unknowns.</li>
+        <li>When you click on a cell:<ul>
+        <li>First click selects the cell (highlighting it).</li>
+        <li>Clicking again copies the contents of the second cell to the first.</li>
+        </ul>
+        </li>
+        <li>A "Reload" button reloads the page, generating a new grid.</li>
+        </ul>
+        <h2 id="estrutura-do-conte-do-alto-n-vel-">Content structure (high level)</h2>
+        <ul>
+        <li><p>HTML:</p>
+        <ul>
+        <li>Basic structure with <code><table id="my-table"> </code> to the grid.</li>
+        <li>A button that reloads the page.</li>
+        </ul>
+        </li>
+        <li><p>CSS:</p>
+        <ul>
+        <li>Grid appearance: size, colors, borders, hover, etc.</li>
+        </ul>
+        </li>
+        <li><p>JavaScript:</p>
+        <ul>
+        <li>Signal/operator constants.</li>
+        <li>Matrix generation <code>matrix</code>(10x13) with content standards.</li>
+        <li>Insertion of 5<code>?</code> in random positions within a row.</li>
+        <li>Building a table in the DOM from a matrix.</li>
+        <li>Logic for clicking on cells to select/copy content between cells.</li>
+        </ul>
+        </li>
+        </ul>
+        <h2 id="como-o-c-digo-joga-regras-de-jogo-">How the code "plays" (game rules)</h2>
+        <ul>
+        <li><p>The grid contains numbers, operators, and symbols, forming incomplete expressions.</p>
+        </li>
+        <li><p>The unknowns <code>?</code> They can be exchanged for values during the game, allowing the player to complete the expressions.</p>
+        </li>
+        <li><p>The basic click-to-click game mechanics make it easy to replace unknowns:</p>
+        <ul>
+        <li>Click on the cell you want to edit (first click).</li>
+        <li>Click on another cell to copy the contents of that second cell to the first (second click).</li>
+        </ul>
+        </li>
+        </ul>
+                
+    </div>
+   
+
   </main>
 
 
@@ -99,13 +188,37 @@ button:hover { background: #000; color: #fff; }
     const ROWS = 10;
     const COLS = 13;
     const signalColA = ['+','-'];
-    // const signalColA = ['+','-','*','/'];
     const signalColB = ['<','>','<=','=>'];
+    const signalColC = ['+','-','*','/'];
+    let   clkMouse   = 0;
+
 
     // Matriz que representa a grade (inicializada com zeros)
     const matrix = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
 
     // Funções utilitárias
+
+    function chandeIdiom(){
+
+      toIdiom = document.getElementById("idiom");
+
+      document.getElementById("ing-us").style.display=
+            (toIdiom.textContent == "Inglês")?"block":"none";
+
+      document.getElementById("ptr-br").style.display=
+            (toIdiom.textContent == "Inglês")?"none":"block";
+
+
+      document.getElementById("reloadBtn").textContent=
+            (toIdiom.textContent == "Inglês")?"Recharge":"Recarregar";
+
+      document.querySelector("h1").textContent=
+            (toIdiom.textContent == "Inglês")?"Puzzle":"Quebra cabeça de numeros.";
+
+      document.getElementById("idiom").textContent=
+            (toIdiom.textContent == "Inglês")?"Portuguese":"Inglês";
+    }
+
     function randInt(min, max) {
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
@@ -114,37 +227,20 @@ button:hover { background: #000; color: #fff; }
 
     function randSignalB() { return signalColB[randInt(0, signalColB.length - 1)]; }
 
-    // Is ?
-    function isQuestion(el, le, dft) {
-      result = dft;
-      if (el != "?" && le !="?") { result = "?";}
-      return result;
-    }
-    function checkValue( posSinal, posZero, posDois, quatro)  {
-
-      /*          *********C O L U N A S********** 
-          | Sinal | Zero | Dois | quatro | Igual  |
-          |   +   |   ?  |  d   |      q |   q-d  |
-          |   -   |   ?  |  d   |      q |   q+d  |
-          |   +   |   z  |  ?   |      q |   q-z  |
-          |   -   |   z  |  ?   |      q |   q+z  |
-          |   *   |   z  |  ?   |      q |   q/z  |
-          |   *   |   ?  |  d   |      q |   q/d  |
-          |   /   |   ?  |  d   |      q |   q*d  |
-          |   /   |   z  |  ?   |      q |   q*z  |
-      */
-      return result;
-    }
+    function randSignalC() { return signalColC[randInt(0, signalColC.length - 1)]; }
 
     // Preenche a matriz com valores padrão conforme o layout do código original
     for (let i = 0; i < ROWS; i++) {
       matrix[i][0]  = randInt(4, 6);
+      matrix[i][1]  = randSignalA();
       matrix[i][2]  = randInt(1, 3);
+      matrix[i][4]  = eval( matrix[i][0]+matrix[i][1]+matrix[i][2] );
       matrix[i][6]  = randInt(0, 9);
       matrix[i][8]  = randInt(0, 9);
       matrix[i][10] = randInt(0, 9);
       matrix[i][12] = randInt(0, 9);
       // inserir 5 '?' em posições aleatórias da linha
+
       for (let k = 0; k < 5; k++) {
         let ccol;
         do {
@@ -153,14 +249,11 @@ button:hover { background: #000; color: #fff; }
         matrix[i][ccol] = '?';
       }
 
-      matrix[i][1]  = randSignalA();
       matrix[i][3]  = '=';
-
-      matrix[i][4]  = isQuestion( matrix[i][0], matrix[i][2], matrix[i][5]);
-      matrix[i][5]  = '=';
-      matrix[i][7]  = randSignalA();
+      matrix[i][5]  = randSignalB();
+      matrix[i][7]  = randSignalC();
       matrix[i][9]  = randSignalB();
-      matrix[i][11] = randSignalA();
+      matrix[i][11] = randSignalC();
     }
 
     // Construção da tabela na página
@@ -188,20 +281,19 @@ button:hover { background: #000; color: #fff; }
     table.addEventListener('click', (e) => {
       const td = e.target.closest('td');
       lin = td.parentElement.rowIndex;
-
+      clkMouse = clkMouse + 1;
+      document.getElementById("clickMouse").innerHTML="Click: "+clkMouse;
+ 
       if (!td) return;
       if (!primeiraClique) {
         primeiraClique = td;
         td.classList.add('modo-inverso');
-        console.log( lin," - ", matrix[lin][4] );
       } else {
         const textoFonte = td.textContent;
         primeiraClique.textContent = textoFonte;
         resetEstado();
       }
-    });
-
+    });  
 </script>
 </body>
 </html>
-
